@@ -4,18 +4,25 @@
   <title>For You ❤️</title>
   <style>
     body {
-      background: black;
-      color: #ffb6c1;
+      margin: 0;
+      background: radial-gradient(circle, #0f0f0f, #000000);
+      color: #ffccd5;
       font-family: 'Courier New', monospace;
       text-align: center;
-      padding-top: 100px;
+      overflow: hidden;
+    }
+
+    .container {
+      margin-top: 120px;
+      padding: 20px;
     }
 
     input, button {
-      padding: 10px;
+      padding: 12px;
       margin: 10px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: none;
+      font-size: 16px;
     }
 
     button {
@@ -27,67 +34,112 @@
     .hidden { display: none; }
 
     .fade {
-      animation: fadeIn 2s;
+      animation: fadeIn 2s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .typing {
+      border-right: 2px solid #ffccd5;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4b6e;
+      animation: float 6s infinite;
+    }
+
+    @keyframes float {
+      0% {transform: translateY(100vh);}
+      100% {transform: translateY(-10vh);}
     }
   </style>
 </head>
 
 <body>
 
-<h1>Hey you… 👀</h1>
-<p>Only one person can unlock this.</p>
+<div class="container">
+  <h1>Hey you… 👀</h1>
+  <p>This isn’t for everyone.</p>
 
-<input type="password" id="code" placeholder="Enter the secret..." />
-<br>
-<button onclick="checkCode()">Unlock 🔐</button>
-
-<div id="stage1" class="hidden fade">
-  <h2>So you remember… 🥺</h2>
-  <p>Then you also remember how it all started...</p>
-  <button onclick="nextStage(2)">Continue →</button>
+  <input type="password" id="code" placeholder="Enter our secret..." />
+  <br>
+  <button onclick="unlock()">Unlock 🔐</button>
 </div>
 
-<div id="stage2" class="hidden fade">
-  <h2>Somewhere between laughs…</h2>
-  <p>I found my favorite person in you 💕</p>
-  <button onclick="nextStage(3)">Continue →</button>
+<div id="stage1" class="hidden container fade">
+  <h2 class="typing">So… you still remember us 🥺</h2>
+  <p>Then come with me… just for a moment.</p>
+  <button onclick="next(2)">Continue →</button>
 </div>
 
-<div id="stage3" class="hidden fade">
-  <h2>And today…</h2>
-  <p>It’s not just your birthday…</p>
-  <button onclick="nextStage(4)">Continue →</button>
+<div id="stage2" class="hidden container fade">
+  <h2>It started so randomly…</h2>
+  <p>But somehow… you became my favorite habit 💕</p>
+  <button onclick="next(3)">Continue →</button>
 </div>
 
-<div id="stage4" class="hidden fade">
-  <h1>Happy Birthday, My Love ❤️</h1>
+<div id="stage3" class="hidden container fade">
+  <h2>You don’t even realize…</h2>
+  <p>How much you mean to me every single day 🫀</p>
+  <button onclick="next(4)">Continue →</button>
+</div>
+
+<div id="stage4" class="hidden container fade">
+  <h1>Happy Birthday, MY LOVE ❤️</h1>
   <p>
-    You are my safe place, my chaos, my happiness…<br><br>
-    I don’t say it enough…<br>
-    But I’m really lucky to have you 🥺💖<br><br>
-    Forever? 💍
+    My Hus Shafik… love u da<br><br>
+    You’re not just someone in my life…<br>
+    You ARE my peace, my chaos, my everything 🥺💖<br><br>
+    If I could choose again…<br>
+    I’d still choose you. Every time. 💍<br><br>
+    I love you endlessly ❤️
   </p>
 </div>
 
 <script>
-  function checkCode() {
+  function unlock() {
     let code = document.getElementById("code").value.toLowerCase();
 
-    if(code === "us") { // CHANGE THIS SECRET WORD
+    if(code === "us") { // CHANGE SECRET WORD
+      document.querySelector(".container").classList.add("hidden");
       document.getElementById("stage1").classList.remove("hidden");
+      createHearts();
     } else {
-      alert("Hmm… not quite right 😏");
+      alert("Hmm… try again 😏");
     }
   }
 
-  function nextStage(num) {
+  function next(num) {
     document.getElementById("stage" + (num-1)).classList.add("hidden");
     document.getElementById("stage" + num).classList.remove("hidden");
+  }
+
+  function createHearts() {
+    setInterval(() => {
+      let heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 10 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }, 300);
   }
 </script>
 
