@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For You ❤️</title>
+  <style>
+    body {
+      background: black;
+      color: #ffb6c1;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    button {
+      background: #ff4b6e;
+      color: white;
+      cursor: pointer;
+    }
+
+    .hidden { display: none; }
+
+    .fade {
+      animation: fadeIn 2s;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Hey you… 👀</h1>
+<p>Only one person can unlock this.</p>
+
+<input type="password" id="code" placeholder="Enter the secret..." />
+<br>
+<button onclick="checkCode()">Unlock 🔐</button>
+
+<div id="stage1" class="hidden fade">
+  <h2>So you remember… 🥺</h2>
+  <p>Then you also remember how it all started...</p>
+  <button onclick="nextStage(2)">Continue →</button>
+</div>
+
+<div id="stage2" class="hidden fade">
+  <h2>Somewhere between laughs…</h2>
+  <p>I found my favorite person in you 💕</p>
+  <button onclick="nextStage(3)">Continue →</button>
+</div>
+
+<div id="stage3" class="hidden fade">
+  <h2>And today…</h2>
+  <p>It’s not just your birthday…</p>
+  <button onclick="nextStage(4)">Continue →</button>
+</div>
+
+<div id="stage4" class="hidden fade">
+  <h1>Happy Birthday, My Love ❤️</h1>
+  <p>
+    You are my safe place, my chaos, my happiness…<br><br>
+    I don’t say it enough…<br>
+    But I’m really lucky to have you 🥺💖<br><br>
+    Forever? 💍
+  </p>
+</div>
+
+<script>
+  function checkCode() {
+    let code = document.getElementById("code").value.toLowerCase();
+
+    if(code === "us") { // CHANGE THIS SECRET WORD
+      document.getElementById("stage1").classList.remove("hidden");
+    } else {
+      alert("Hmm… not quite right 😏");
+    }
+  }
+
+  function nextStage(num) {
+    document.getElementById("stage" + (num-1)).classList.add("hidden");
+    document.getElementById("stage" + num).classList.remove("hidden");
+  }
+</script>
+
+</body>
+</html>
